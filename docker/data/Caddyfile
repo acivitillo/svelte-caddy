@@ -1,0 +1,17 @@
+# specify the domain you want to use for your local development
+localhost {
+    # use the certificate made with mkcert
+	tls /root/certs/myapp.me+1.pem /root/certs/myapp.me+1-key.pem
+
+    # forward requests from which the path starts with /v1 to whatever is listening on api:5001
+	reverse_proxy /v1/* http://api:5001
+
+	# forward all other requests to webui:5000
+	reverse_proxy http://webui:5000
+}
+
+localhost:81 {
+    root * /var/www
+    encode gzip
+    file_server
+}

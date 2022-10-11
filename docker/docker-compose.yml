@@ -1,0 +1,26 @@
+version: "3.8"
+services:
+
+  caddy:
+    image: caddy:alpine
+    ports:
+      - "80:80"
+      - "81:81"
+      - "443:443"
+    volumes:
+      # ./dev/Caddyfile is where the config file is located
+      - ./data/Caddyfile:/etc/caddy/Caddyfile
+
+      # ./dev/certs is where the mkcert certificate is located
+      - ./data/certs:/root/certs
+
+      # persist Caddy's data in a volume
+      - caddy_data:/data
+      - caddy_config:/config
+
+      # html static
+      - ./data/www:/var/www
+
+volumes:
+  caddy_data:
+  caddy_config:
