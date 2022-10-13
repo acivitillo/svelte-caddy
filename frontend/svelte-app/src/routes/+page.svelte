@@ -1,7 +1,21 @@
 <script>
+	import { onMount } from 'svelte';
 	import Counter from './Counter.svelte';
 	import welcome from '$lib/images/svelte-welcome.webp';
 	import welcome_fallback from '$lib/images/svelte-welcome.png';
+	let api_response = '';
+	async function getAPI() {
+    const response = await fetch('https://localhost:8008/', {
+        method: 'GET',
+        headers: { 'Content-type': 'application/json' }
+    });
+    let api_response = await response.json()
+    return api_response.message
+};
+	onMount(async () => {
+		api_response = JSON.stringify(await getAPI());
+	});
+
 </script>
 
 <svelte:head>
@@ -10,6 +24,8 @@
 </svelte:head>
 
 <section>
+	<h1>{api_response}
+	</h1>
 	<h1>
 		<span class="welcome">
 			<picture>
@@ -17,7 +33,6 @@
 				<img src={welcome_fallback} alt="Welcome" />
 			</picture>
 		</span>
-
 		to your new<br />SvelteKit app
 	</h1>
 

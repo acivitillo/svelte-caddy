@@ -1,8 +1,10 @@
-.DS_Store
-node_modules
-/build
-/.svelte-kit
-/package
+**/.DS_Store
+**/node_modules
+**/build
+**/.svelte-kit
+**/package
+**/www
+**/certs
 .env
 .env.*
 !.env.example

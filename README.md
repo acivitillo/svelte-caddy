@@ -15,7 +15,7 @@ You can check the `data/Caddyfile` to make sure you name the certs in the right 
 
 Svelte is a **frontend** javascript asset served using static **HTML** files. In order to have the html files, we need to build the Svelte code first.
 
-There is a script in `build_svelte_site.sh` to build the Svelte site and copy the static assets into `docker/www`. If the script doesn't work on your platform (mine is Linux Ubuntu), you can still read the code to understand how to build Svelte on your platform.
+There is a script in `build_svelte_site.sh` to build the Svelte site and copy the static assets into `docker/data/www`. If the script doesn't work on your platform (mine is Linux Ubuntu), you can still read the code to understand how to build Svelte on your platform.
 
 ## Docker Compose
 
@@ -31,3 +31,7 @@ You should be able to see the Svelte site at https://localhost:81/
 Svelte is a compiler, as such it can compile to different target platforms. The easiest way to serve Svelte, especially if you have a simple SPA that queries an API, is to use `'@sveltejs/adapter-static'` instead of `'@sveltejs/adapter-auto'` which comes as a default. This way you can serve a Svelte app with Caddy. Check the `svelte.config.js` file.
 
 In order for prerendering to work, you also need to add the `+layout.js` file in `routes` with the line `export const prerender = true;`.
+
+## Calling Fastapi using Svelte
+
+To connect Svelte app to Fastapi backend using Docker both Fastapi and Svelte is being serverd on HTTPS. In order to allow CORS policy a middleware is added in `backend/main.py`
