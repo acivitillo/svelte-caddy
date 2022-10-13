@@ -7,6 +7,7 @@ services:
       - "80:80"
       - "81:81"
       - "443:443"
+      - "8008:8008"
     volumes:
       # ./dev/Caddyfile is where the config file is located
       - ./data/Caddyfile:/etc/caddy/Caddyfile
@@ -20,6 +21,19 @@ services:
 
       # html static
       - ./data/www:/var/www
+
+  fastapi:
+    image: fastapi:v1
+    volumes:
+      - ../backend/:/backend/
+    command: >
+      bash -c "uvicorn backend.main:app --reload --port 8000  --host 0.0.0.0"
+    ports:
+      - 8000:8000
+    container_name: fastapi
+    stdin_open: true # docker run -i
+    tty: true # docker run -t
+
 
 volumes:
   caddy_data:

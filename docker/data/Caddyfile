@@ -8,10 +8,16 @@ localhost {
 
 	# forward all other requests to webui:5000
 	reverse_proxy http://webui:5000
+
 }
 
 localhost:81 {
     root * /var/www
     encode gzip
     file_server
+}
+
+localhost:8008 {
+    # forward request from localhost:8008 to fastapi container exposed on port 8000
+    reverse_proxy fastapi:8000
 }
