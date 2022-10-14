@@ -1,3 +1,8 @@
+<svelte:head>
+	<title>Logged</title>
+	<meta name="description" content="Logged" />
+</svelte:head>
+
 <script>
 	import { onMount } from 'svelte';
 	let api_response = '';

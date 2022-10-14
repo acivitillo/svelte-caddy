@@ -11,3 +11,4 @@
 .vercel
 .output
 .pem
+__pycache__/

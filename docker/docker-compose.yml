@@ -30,6 +30,9 @@ services:
       bash -c "uvicorn backend.main:app --reload --port 8000  --host 0.0.0.0"
     ports:
       - 8000:8000
+    environment:
+      - github_client_id=${github_client_id}
+      - github_client_secret=${github_client_secret}
     container_name: fastapi
     stdin_open: true # docker run -i
     tty: true # docker run -t

@@ -1,11 +1,9 @@
 <script>
 	import { onMount } from 'svelte';
-	import { page } from '$app/stores'
 	import Counter from './Counter.svelte';
 	import welcome from '$lib/images/svelte-welcome.webp';
 	import welcome_fallback from '$lib/images/svelte-welcome.png';
 	let api_response = '';
-	const isBeta = $page.url.searchParams.has('beta');
 	async function getAPI() {
     const response = await fetch('https://localhost:8008/', {
         method: 'GET',
@@ -27,7 +25,6 @@
 
 <section>
 	<h1>Api response is: {api_response}
-		and param value is: {isBeta}
 	</h1>
 	<h1>
 		<span class="welcome">

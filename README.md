@@ -11,6 +11,13 @@ Create the certifications using `mkcert` and put them inside `data/certs`.
 
 You can check the `data/Caddyfile` to make sure you name the certs in the right way for Caddy Server to work.
 
+The command is:
+
+```bash
+cd docker/data/certs
+mkcert localhost.it
+```
+
 ## Build the Svelte site
 
 Svelte is a **frontend** javascript asset served using static **HTML** files. In order to have the html files, we need to build the Svelte code first.
@@ -18,6 +25,12 @@ Svelte is a **frontend** javascript asset served using static **HTML** files. In
 There is a script in `build_svelte_site.sh` to build the Svelte site and copy the static assets into `docker/data/www`. If the script doesn't work on your platform (mine is Linux Ubuntu), you can still read the code to understand how to build Svelte on your platform.
 
 ## Docker Compose
+Make sure you add the following keys to a `docker/.env` file:
+
+* github_client_id = value
+* github_client_secret = value
+
+These values are in the github oauth app.
 
 ```bash
 cd docker

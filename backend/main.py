@@ -1,3 +1,4 @@
+import os
 from urllib import request
 import requests  # use httpx instead
 from fastapi import FastAPI, Response
@@ -21,8 +22,8 @@ async def root():
     return {"message": "Connection with fastapi container works fine"}
 
 
-github_client_id = "..."
-github_client_secret = "..."
+github_client_id = os.environ["github_client_id"]
+github_client_secret = os.environ["github_client_secret"]
 
 
 def get_user_attributes(github_access_token: str):
@@ -39,7 +40,16 @@ def get_user_attributes(github_access_token: str):
 
 
 @app.get("/github")
-async def callback(request: Request, response: Response, code: str):
+async def callback(response: Response, code: str):
+    """After GitHub successful authentication, the user is sent to this endpoint
+    with the `code` url parameter. code is a temporary token issued by GitHub, we
+    verify this token using the GitHub `client_id` and `client_secret` that are 
+    available **only** on the server.
+    After successful verification the user is redirected to a Svelte HTML page, the 
+    HTML response includes an Authrization cookie. On the frontend side we can fetch 
+    the cookie with javascript, this way we retrieve the token on the client.
+    """
+
     client_id = f"?client_id={github_client_id}"
     client_secret = f"&client_secret={github_client_secret}"
     client_code = f"&code={code}"
@@ -48,14 +58,6 @@ async def callback(request: Request, response: Response, code: str):
         token_request_url, headers={"Accept": "application/json"}
     ).json()["access_token"]
     user = get_user_attributes(github_access_token)
-    request.session["user"] = user
-    print("iser set is", request.session["user"])
-    response = RedirectResponse("http:localhost:5173/logged")
-    response.set_cookie(key="Authorization", value="222222", httponly=False)
+    response = RedirectResponse("https://localhost:81/logged")
+    response.set_cookie(key="Authorization", value=user["email"], httponly=False)
     return response
-    #return "hi"
-
-@app.get("/user")
-async def get_user(request: Request):
-    print("user is:", request.session["user"])
-    return request.session["user"]

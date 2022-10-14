@@ -22,6 +22,12 @@
 			<li class:active={$page.url.pathname === '/about'}>
 				<a href="/about">About</a>
 			</li>
+			<li class:active={$page.url.pathname === '/login'}>
+				<a href="/login">Login</a>
+			</li>
+			<li class:active={$page.url.pathname === '/logged'}>
+				<a href="/logged">Logged</a>
+			</li>
 		</ul>
 		<svg viewBox="0 0 2 3" aria-hidden="true">
 			<path d="M0,0 L0,3 C0.5,3 0.5,3 1,2 L2,0 Z" />
