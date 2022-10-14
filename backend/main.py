@@ -21,8 +21,8 @@ async def root():
     return {"message": "Connection with fastapi container works fine"}
 
 
-github_client_id = "8209dc4475c8e191fa31"
-github_client_secret = "52686a24c40c8959c9414b75062eef04d1d26ca5"
+github_client_id = "..."
+github_client_secret = "..."
 
 
 def get_user_attributes(github_access_token: str):
