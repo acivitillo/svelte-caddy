@@ -10,3 +10,4 @@
 !.env.example
 .vercel
 .output
+.pem

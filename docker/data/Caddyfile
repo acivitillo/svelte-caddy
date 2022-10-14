@@ -1,7 +1,7 @@
 # specify the domain you want to use for your local development
 localhost {
     # use the certificate made with mkcert
-	tls /root/certs/myapp.me+1.pem /root/certs/myapp.me+1-key.pem
+	tls /root/certs/myapp.me.pem /root/certs/myapp.me-key.pem
 
     # forward requests from which the path starts with /v1 to whatever is listening on api:5001
 	reverse_proxy /v1/* http://api:5001
